@@ -54,7 +54,7 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'octopusdeploy/octo:latest'
+  image: 'docker://octopusdeploy/octo:latest'
   args:
     - 'pack'
     - '--id=${{ inputs.package_id }}'
