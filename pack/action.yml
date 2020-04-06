@@ -58,34 +58,20 @@ runs:
   args:
     - 'pack'
     - '--id=${{ inputs.package_id }}'
-    - ${{if inputs.format }}:
-      - '--format=${{ inputs.format }}'
-    - ${{if inputs.version }}:
-      - '--version=${{ inputs.version }}'
-    - ${{if inputs.out_folder }}:
-      - '--outFolder=${{ inputs.out_folder }}'
-    - ${{if inputs.base_path }}:
-      - '--basePath=${{ inputs.base_path }}'
-    - ${{if inputs.log_level }}:
-      - '--logLevel=${{ inputs.log_level }}'
-    - ${{if inputs.author }}:
-      - '--author=${{ inputs.author }}'
-    - ${{if inputs.title }}:
-      - '--title=${{ inputs.title }}'
-    - ${{if inputs.description }}:
-      - '--description=${{ inputs.description }}'
-    - ${{if inputs.release_notes }}:
-      - '--releaseNotes=${{ inputs.release_notes }}'
-    - ${{if inputs.release_notes_file }}:
-      - '--releaseNotesFile=${{ inputs.release_notes_file }}'
-    - ${{if inputs.compression_level }}:
-      - '--compressionLevel=${{ inputs.compression_level }}'
-    - ${{if inputs.verbose }}:
-      - '--verbose'
-    - ${{if inputs.include }}:
-      - '--include=${{ inputs.include }}'
-    - ${{if inputs.overwrite }}:
-      - '--overwrite'
+    - ${{ inputs.format && '--format=${{ inputs.format }}'}}
+    # - '--version=${{ inputs.version }}'
+    # - '--outFolder=${{ inputs.out_folder }}'
+    # - '--basePath=${{ inputs.base_path }}'
+    # - '--logLevel=${{ inputs.log_level }}'
+    # - '--author=${{ inputs.author }}'
+    # - '--title=${{ inputs.title }}'
+    # - '--description=${{ inputs.description }}'
+    # - '--releaseNotes=${{ inputs.release_notes }}'
+    # - '--releaseNotesFile=${{ inputs.release_notes_file }}'
+    # - '--compressionLevel=${{ inputs.compression_level }}'
+    # - '--verbose'
+    # - '--include=${{ inputs.include }}'
+    # - '--overwrite'
 
 branding:
   icon: 'package'
