@@ -32,3 +32,5 @@ jobs:
         with:
           package_id: 'Test'
           format: 'Zip'
+          verbose: true
+          overwrite: true
