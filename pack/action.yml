@@ -58,7 +58,7 @@ runs:
   args:
     - 'pack'
     - '--id=${{ inputs.package_id }}'
-    - ${{ inputs.format }} && '--format=${{ inputs.format }}'
+    - ${{ if inputs.format }} '--format=${{ inputs.format }}'
     # - '--version=${{ inputs.version }}'
     # - '--outFolder=${{ inputs.out_folder }}'
     # - '--basePath=${{ inputs.base_path }}'
