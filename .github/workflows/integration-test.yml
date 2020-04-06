@@ -1,0 +1,31 @@
+name: Integration tests
+on:
+  pull_request:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  run-tests:
+    name: Run tests
+    
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, ubuntu-16.04, macos-latest]
+    
+    steps:
+      - run: mkdir -p path/to/artifact
+      
+      - run: echo hello > path/to/artifact/hello_world.txt
+      
+      - name: Run pack action
+        uses: ./pack
+        with:
+          package_id: 'Test'
