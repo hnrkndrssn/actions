@@ -18,11 +18,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, ubuntu-16.04, macos-latest]
+        os: [ubuntu-latest, ubuntu-16.04]
     
     steps:
       - uses: actions/checkout@v2
-      
+
       - run: mkdir -p path/to/artifact
       
       - run: echo hello > path/to/artifact/hello_world.txt
