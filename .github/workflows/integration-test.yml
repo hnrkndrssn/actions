@@ -32,5 +32,6 @@ jobs:
         with:
           package_id: 'Test'
           format: 'Zip'
+          base_path: 'path/to/artifact'
           verbose: true
           overwrite: true
