@@ -59,19 +59,19 @@ runs:
     - 'pack'
     - '--id=${{ inputs.package_id }}'
     - ${{ inputs.format != '' && format('--format={0}', inputs.format) }}
-    # - '--version=${{ inputs.version }}'
-    # - '--outFolder=${{ inputs.out_folder }}'
-    # - '--basePath=${{ inputs.base_path }}'
-    # - '--logLevel=${{ inputs.log_level }}'
-    # - '--author=${{ inputs.author }}'
-    # - '--title=${{ inputs.title }}'
-    # - '--description=${{ inputs.description }}'
-    # - '--releaseNotes=${{ inputs.release_notes }}'
-    # - '--releaseNotesFile=${{ inputs.release_notes_file }}'
-    # - '--compressionLevel=${{ inputs.compression_level }}'
-    # - '--verbose'
-    # - '--include=${{ inputs.include }}'
-    # - '--overwrite'
+    - ${{ inputs.version != '' && format('--version={0}', inputs.version) }}
+    - ${{ inputs.out_folder != '' && format('--outFolder={0}', inputs.out_folder) }}
+    - ${{ inputs.base_path != '' && format('--basePath={0}', inputs.base_path) }}
+    - ${{ inputs.log_level != '' && format('--logLevel={0}', inputs.log_level) }}
+    - ${{ inputs.author != '' && format('--author={0}', inputs.author) }}
+    - ${{ inputs.title != '' && format('--title={0}', inputs.title) }}
+    - ${{ inputs.description != '' && format('--description={0}', inputs.description) }}
+    - ${{ inputs.release_notes != '' && format('--releaseNotes={0}', inputs.release_notes) }}
+    - ${{ inputs.release_notes_file != '' && format('--releaseNotesFile={0}', inputs.release_notes_file) }}
+    - ${{ inputs.compression_level != '' && format('--compressionLevel={0}', inputs.compression_level) }}
+    - ${{ inputs.verbose && '--verbose' }}
+    - ${{ inputs.include != '' && format('--include={0}', inputs.include) }}
+    - ${{ inputs.overwrite && '--overwrite' }}
 
 branding:
   icon: 'package'
