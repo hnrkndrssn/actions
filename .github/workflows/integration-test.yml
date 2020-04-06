@@ -31,3 +31,4 @@ jobs:
         uses: ./pack
         with:
           package_id: 'Test'
+          format: 'Zip'
