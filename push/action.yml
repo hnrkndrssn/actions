@@ -43,8 +43,8 @@ runs:
     - '--package=${{ inputs.package }}'
     - '--server=${{ inputs.octopus_server || null }}'
     - '--apiKey=${{ inputs.octopus_api_key || null }}'
-    - ${{ inputs.overwrite_mode != '' }} && '--overwriteMode=${{ inputs.overwrite_mode }}'
-    - ${{ inputs.use_delta_compression }} && '--use-delta-compression'
+    - ${{ inputs.overwrite_mode != '' && '--overwriteMode=${{ inputs.overwrite_mode }}' }}
+    - ${{ inputs.use_delta_compression  && '--use-delta-compression' }}
     # - ${{ inputs.debug && '--debug' || null }}
     # - ${{ inputs.ignore_ssl_errors && '--ignoreSslErrors' || null }}
     # - ${{ inputs.timeout != '' && format('--timeout={0}', inputs.timeout) || null }}
