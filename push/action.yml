@@ -43,9 +43,9 @@ runs:
     - '--package=${{ inputs.package }}'
     - '--server=${{ inputs.octopus_server || null }}'
     - '--apiKey=${{ inputs.octopus_api_key || null }}'
-    - ${{ if inputs.overwrite_mode != '' }}:
+    ${{ if inputs.overwrite_mode != '' }}:
       - '--overwriteMode=${{ inputs.overwrite_mode }}'
-    - ${{ if inputs.use_delta_compression }}:
+    ${{ if inputs.use_delta_compression }}:
       - '--use-delta-compression'
     # - ${{ inputs.debug && '--debug' || null }}
     # - ${{ inputs.ignore_ssl_errors && '--ignoreSslErrors' || null }}
