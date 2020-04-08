@@ -1,0 +1,56 @@
+name: 'Push'
+description: 'Pushes a package (.nupkg, .zip, .tar.gz, etc.) package to the built-in NuGet repository in an Octopus Server.'
+author: 'Octopus Deploy'
+
+inputs:
+  package:
+    description: 'Package file to push.'
+    required: true
+  overwrite_mode:
+    description: 'If the package already exists in the repository, the default behavior is to reject the new package being pushed. Valid options are `FailIfExists`, `OverwriteExisting` or `IgnoreIfExists`. Default: `FailIfExists`.'
+    required: false
+  use_delta_compression:
+    description: 'Allows disabling of delta compression when uploading packages to the Octopus Server. Default: `true`.'
+    required: false
+
+  octopus_server:
+    description: 'The base URL for your Octopus Server, e.g., ''https://octopus.example.com/''.'
+    required: true
+  octopus_api_key:
+    description: 'Your API key. Get this from the user profile page.'
+    required: true
+  debug:
+    description: 'Enable debug logging'
+    required: false
+  ignore_ssl_errors:
+    description: 'Set this flag if your Octopus Server uses HTTPS but the certificate is not trusted on this machine. Any certificate errors will be ignored. WARNING: this option may create a security vulnerability.'
+    required: false
+  timeout:
+    description: 'Timeout in seconds for network operations. Default is `600`'
+    required: false
+  space:
+    description: 'The name or ID of a space within which this command will be executed. The default space will be used if it is omitted.'
+    required: false
+  log_level:
+    description: 'The log level. Valid options are `verbose`, `debug`, `information`, `warning`, `error` and `fatal`. Default: `debug`'
+    required: false
+
+runs:
+  using: 'docker'
+  image: 'docker://octopusdeploy/octo:latest'
+  args:
+    - 'push'
+    - '--package=${{ inputs.package }}'
+    - ${{ inputs.overwrite_mode != '' && format('--overwrite-mode={0}', inputs.overwrite_mode) || '' }}
+    - ${{ inputs.use_delta_compression && '--use-delta-compression' || '' }}
+    - '--server=${{ inputs.octopus_server }}'
+    - '--apiKey=${{ inputs.octopus_api_key }}'
+    - ${{ inputs.debug && '--debug' || '' }}
+    - ${{ inputs.ignore_ssl_errors && '--ignoreSslErrors' || '' }}
+    - ${{ inputs.timeout != '' && format('--timeout={0}', inputs.timeout) || '' }}
+    - ${{ inputs.space != '' && format('--space={0}', inputs.space) || '' }}
+    - ${{ inputs.log_level != '' && format('--logLevel={0}', inputs.log_level) || '' }}
+
+branding:
+  icon: 'package'
+  color: 'gray-dark'
