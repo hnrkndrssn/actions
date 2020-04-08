@@ -41,15 +41,15 @@ runs:
   args:
     - 'push'
     - '--package=${{ inputs.package }}'
-    - ${{ inputs.overwrite_mode != '' && format('--overwrite-mode={0}', inputs.overwrite_mode) || '' }}
-    - ${{ inputs.use_delta_compression && '--use-delta-compression' || '' }}
+    - ${{ inputs.overwrite_mode != '' && format('--overwrite-mode={0}', inputs.overwrite_mode) }}
+    - ${{ inputs.use_delta_compression && '--use-delta-compression' }}
     - '--server=${{ inputs.octopus_server }}'
     - '--apiKey=${{ inputs.octopus_api_key }}'
-    - ${{ inputs.debug && '--debug' || '' }}
-    - ${{ inputs.ignore_ssl_errors && '--ignoreSslErrors' || '' }}
-    - ${{ inputs.timeout != '' && format('--timeout={0}', inputs.timeout) || '' }}
-    - ${{ inputs.space != '' && format('--space={0}', inputs.space) || '' }}
-    - ${{ inputs.log_level != '' && format('--logLevel={0}', inputs.log_level) || '' }}
+    - ${{ inputs.debug && '--debug' }}
+    - ${{ inputs.ignore_ssl_errors && '--ignoreSslErrors' }}
+    - ${{ inputs.timeout != '' && format('--timeout={0}', inputs.timeout) }}
+    - ${{ inputs.space != '' && format('--space={0}', inputs.space) }}
+    - ${{ inputs.log_level != '' && format('--logLevel={0}', inputs.log_level) }}
 
 branding:
   icon: 'package'
