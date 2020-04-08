@@ -14,7 +14,7 @@ RUN mkdir /octo \
     && ln /octo/alpine /usr/bin/octo \
     && chmod +x /usr/bin/octo
         
-RUN export OCTO_TOOLS_VERSION=$(wget -c https://g.octopushq.com/latesttools | egrep -m 1 '"latest"' | awk -F '"' '{ print $4 }')
+RUN export OCTO_TOOLS_VERSION=$(wget -qO- https://g.octopushq.com/latesttools | egrep -m 1 '"latest"' | awk -F '"' '{ print $4 }')
 
 LABEL maintainer="devops@octopus.com"
 LABEL octopus.push.action.version="1.0"
