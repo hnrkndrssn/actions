@@ -14,15 +14,14 @@ RUN mkdir /octo \
     && ln /octo/alpine /usr/bin/octo \
     && chmod +x /usr/bin/octo
         
-RUN export OCTO_TOOLS_VERSION=$(wget -qO- https://g.octopushq.com/latesttools | egrep -m 1 '"latest"' | awk -F '"' '{ print $4 }')
+RUN OCTO_TOOLS_VERSION=$(wget -qO- https://g.octopushq.com/latesttools | egrep -m 1 '"latest"' | awk -F '"' '{ print $4 }') \
+    && wget -c https://download.octopusdeploy.com/octopus-tools/$OCTO_TOOLS_VERSION/OctopusTools.$OCTO_TOOLS_VERSION.linux-x64.tar.gz -O - \
+    | tar -zxvf -C /octo \
+	&& rm /tmp/OctopusTools.linux-x64.tar.gz
 
 LABEL maintainer="devops@octopus.com"
 LABEL octopus.push.action.version="1.0"
 LABEL octopus.tools.version=$OCTO_TOOLS_VERSION
-
-RUN wget -c https://download.octopusdeploy.com/octopus-tools/$OCTO_TOOLS_VERSION/OctopusTools.$OCTO_TOOLS_VERSION.linux-x64.tar.gz -O - \
-    | tar -zxvf -C /octo \
-	&& rm /tmp/OctopusTools.linux-x64.tar.gz
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
