@@ -15,7 +15,7 @@ RUN mkdir /octo \
     && chmod +x /usr/bin/octo
 
 RUN OCTO_TOOLS_VERSION=$(wget -qO- https://g.octopushq.com/latesttools | egrep -m 1 '"latest"' | awk -F '"' '{ print $4 }') \
-    && wget -c https://download.octopusdeploy.com/octopus-tools/$OCTO_TOOLS_VERSION/OctopusTools.$OCTO_TOOLS_VERSION.linux-x64.tar.gz -O - \
+    && wget -c https://download.octopusdeploy.com/octopus-tools/$OCTO_TOOLS_VERSION/OctopusTools.$OCTO_TOOLS_VERSION.linux-x64.tar.gz \
     && tar -zxvf OctopusTools.$OCTO_TOOLS_VERSION.linux-x64.tar.gz -C /octo \
 	&& rm /tmp/OctopusTools.linux-x64.tar.gz
 
