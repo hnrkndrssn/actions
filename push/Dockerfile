@@ -1,0 +1,30 @@
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1-alpine
+
+# Alpine base image does not have ICU libraries available
+# https://github.com/dotnet/corefx/blob/master/Documentation/architecture/globalization-invariant-mode.md
+RUN apk add --no-cache icu-libs
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT false
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+
+# The dotnetcore bootstrapper doesnt work in alpine shell (built for bash)
+# This allows invoking octo if running interactive container
+RUN mkdir /octo \
+    && echo "dotnet /octo/octo.dll \"\$@\"" > /octo/alpine \
+    && ln /octo/alpine /usr/bin/octo \
+    && chmod +x /usr/bin/octo
+        
+RUN export OCTO_TOOLS_VERSION=$(curl -SL https://g.octopushq.com/latesttools | egrep -m 1 '"latest"' | awk -F '"' '{ print $4 }')
+
+LABEL maintainer="devops@octopus.com"
+LABEL octopus.push.action.version="1.0"
+LABEL octopus.tools.version=$OCTO_TOOLS_VERSION
+
+RUN curl -SL https://download.octopusdeploy.com/octopus-tools/$OCTO_TOOLS_VERSION/OctopusTools.$OCTO_TOOLS_VERSION.linux-x64.tar.gz \
+    | tar -zxvf -C /octo \
+	&& rm /tmp/OctopusTools.linux-x64.tar.gz
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
