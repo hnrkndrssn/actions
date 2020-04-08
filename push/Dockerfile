@@ -14,13 +14,13 @@ RUN mkdir /octo \
     && ln /octo/alpine /usr/bin/octo \
     && chmod +x /usr/bin/octo
         
-RUN export OCTO_TOOLS_VERSION=$(curl -SL https://g.octopushq.com/latesttools | egrep -m 1 '"latest"' | awk -F '"' '{ print $4 }')
+RUN export OCTO_TOOLS_VERSION=$(wget -c https://g.octopushq.com/latesttools | egrep -m 1 '"latest"' | awk -F '"' '{ print $4 }')
 
 LABEL maintainer="devops@octopus.com"
 LABEL octopus.push.action.version="1.0"
 LABEL octopus.tools.version=$OCTO_TOOLS_VERSION
 
-RUN curl -SL https://download.octopusdeploy.com/octopus-tools/$OCTO_TOOLS_VERSION/OctopusTools.$OCTO_TOOLS_VERSION.linux-x64.tar.gz \
+RUN wget -c https://download.octopusdeploy.com/octopus-tools/$OCTO_TOOLS_VERSION/OctopusTools.$OCTO_TOOLS_VERSION.linux-x64.tar.gz -O - \
     | tar -zxvf -C /octo \
 	&& rm /tmp/OctopusTools.linux-x64.tar.gz
 
