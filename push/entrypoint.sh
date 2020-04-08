@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
-function main() {
+function main {
     echo ""
 
     optionalArgs=()
