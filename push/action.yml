@@ -41,15 +41,15 @@ runs:
   args:
     - 'push'
     - '--package=${{ inputs.package }}'
-    - ${{ inputs.overwrite_mode != '' && format('--overwrite-mode={0}', inputs.overwrite_mode) }}
-    - ${{ inputs.use_delta_compression && '--use-delta-compression' }}
-    - '--server=${{ inputs.octopus_server }}'
-    - '--apiKey=${{ inputs.octopus_api_key }}'
-    - ${{ inputs.debug && '--debug' }}
-    - ${{ inputs.ignore_ssl_errors && '--ignoreSslErrors' }}
-    - ${{ inputs.timeout != '' && format('--timeout={0}', inputs.timeout) }}
-    - ${{ inputs.space != '' && format('--space={0}', inputs.space) }}
-    - ${{ inputs.log_level != '' && format('--logLevel={0}', inputs.log_level) }}
+    - ${{ inputs.overwrite_mode != '' && format('--overwrite-mode={0}', inputs.overwrite_mode)  || null}}
+    - ${{ inputs.use_delta_compression && '--use-delta-compression' || null }}
+    - '--server=${{ inputs.octopus_server || null }}'
+    - '--apiKey=${{ inputs.octopus_api_key || null }}'
+    - ${{ inputs.debug && '--debug' || null }}
+    - ${{ inputs.ignore_ssl_errors && '--ignoreSslErrors' || null }}
+    - ${{ inputs.timeout != '' && format('--timeout={0}', inputs.timeout) || null }}
+    - ${{ inputs.space != '' && format('--space={0}', inputs.space) || null }}
+    - ${{ inputs.log_level != '' && format('--logLevel={0}', inputs.log_level) || null }}
 
 branding:
   icon: 'package'
