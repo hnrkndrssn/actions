@@ -31,7 +31,16 @@ jobs:
         uses: ./pack
         with:
           package_id: 'Test'
+          version: '1.0.0'
           format: 'Zip'
           base_path: 'path/to/artifact'
           verbose: true
           overwrite: true
+      
+      - name: Push package to Octopus
+        uses: ./push
+        with:
+          package: 'path/to/artifact/Test.1.0.0.zip'
+          overwrite_mode: 'OverwriteExisting'
+          octopus_server: ${{ secrets.OCTOPUS_URL }}
+          octopus_api_key: ${{ secrets.OCTOPUS_API_KEY }}
