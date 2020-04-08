@@ -41,8 +41,9 @@ runs:
   args:
     - 'push'
     - '--package=${{ inputs.package }}'
-    - ${{ inputs.overwrite_mode != '' && format('--overwrite-mode={0}', inputs.overwrite_mode)  || null}}
-    - ${{ inputs.use_delta_compression && '--use-delta-compression' || null }}
+    - '--overwriteMode=${{ inputs.overwrite_mode }}'
+      if: ${{ inputs.overwrite_mode != '' }}
+    - '--use-delta-compression'
     - '--server=${{ inputs.octopus_server || null }}'
     - '--apiKey=${{ inputs.octopus_api_key || null }}'
     - ${{ inputs.debug && '--debug' || null }}
