@@ -38,18 +38,6 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  # args:
-  #   - 'push'
-  #   - '--package=${{ inputs.package }}'
-  #   - '--server=${{ inputs.octopus_server || null }}'
-  #   - '--apiKey=${{ inputs.octopus_api_key || null }}'
-  #   - ${{ inputs.overwrite_mode != '' && '--overwriteMode=${{ inputs.overwrite_mode }}' }}
-  #   - ${{ inputs.use_delta_compression  && '--use-delta-compression' }}
-  #   - ${{ inputs.debug && '--debug' || null }}
-  #   - ${{ inputs.ignore_ssl_errors && '--ignoreSslErrors' || null }}
-  #   - ${{ inputs.timeout != '' && format('--timeout={0}', inputs.timeout) || null }}
-  #   - ${{ inputs.space != '' && format('--space={0}', inputs.space) || null }}
-  #   - ${{ inputs.log_level != '' && format('--logLevel={0}', inputs.log_level) || null }}
 
 branding:
   icon: 'package'
