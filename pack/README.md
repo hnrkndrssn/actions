@@ -31,9 +31,12 @@ This GitHub Action (using the `octopusdeploy/octo` docker container) creates a p
 ## Example workflow - package application with all defaults
 
 On every `push` to a tag, [create a package](https://octopus.com/docs/packaging-applications/create-packages/octopus-cli)
+
 ```yaml
 on: 
   push:
+    tag: 
+      '*'
 
 jobs:
 
@@ -46,5 +49,3 @@ jobs:
         with:
           package_id: 'MyCompany.MyApp'
 ```
-
-## 
