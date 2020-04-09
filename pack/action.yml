@@ -23,7 +23,7 @@ inputs:
     required: false
   
   author:
-    description: 'Add an author to the package metadata; defaults to the current user'
+    description: 'Add an author to the package metadata. Add multiple authors by separating them with a `,`. Default: the current user'
     required: false
   title:
     description: 'The title of the package'
@@ -45,8 +45,8 @@ inputs:
   verbose:
     description: 'Verbose output'
     required: false
-  include:
-    description: 'Add a file pattern to include, relative to the base path e.g. /bin/- *.dll - if none are specified, defaults to **'
+  include: 
+    description: 'Add a file pattern to include, relative to the base path e.g. /bin/*.dll. Specify multiple file patterns by separating them with a `,`. Default:  `**`'
     required: false
   overwrite:
     description: 'Allow an existing package file of the same ID/version to be overwritten'
@@ -54,24 +54,7 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'docker://octopusdeploy/octo:latest'
-  args:
-    - 'pack'
-    - '--id=${{ inputs.package_id }}'
-    - ${{ inputs.format != '' && format('--format={0}', inputs.format) || '' }}
-    - ${{ inputs.version != '' && format('--version={0}', inputs.version) || '' }}
-    - ${{ inputs.out_folder != '' && format('--outFolder={0}', inputs.out_folder) || '' }}
-    - ${{ inputs.base_path != '' && format('--basePath={0}', inputs.base_path) || '' }}
-    - ${{ inputs.log_level != '' && format('--logLevel={0}', inputs.log_level) || '' }}
-    - ${{ inputs.author != '' && format('--author={0}', inputs.author) || '' }}
-    - ${{ inputs.title != '' && format('--title={0}', inputs.title) || '' }}
-    - ${{ inputs.description != '' && format('--description={0}', inputs.description) || '' }}
-    - ${{ inputs.release_notes != '' && format('--releaseNotes={0}', inputs.release_notes) || '' }}
-    - ${{ inputs.release_notes_file != '' && format('--releaseNotesFile={0}', inputs.release_notes_file) || '' }}
-    - ${{ inputs.compression_level != '' && format('--compressionLevel={0}', inputs.compression_level) || '' }}
-    - ${{ inputs.verbose && '--verbose' || '' }}
-    - ${{ inputs.include != '' && format('--include={0}', inputs.include) || '' }}
-    - ${{ inputs.overwrite && '--overwrite' || '' }}
+  image: 'Dockerfile'
 
 branding:
   icon: 'package'
