@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-function main() {
+run() {
     echo ""
 
     args=()
@@ -9,44 +9,45 @@ function main() {
     args+=("--server=${INPUT_OCTOPUS_SERVER}")
     args+=("--apikey=${INPUT_OCTOPUS_API_KEY}")
 
+    optionalArgs=()
     if isSet "${INPUT_SPACE}"; then
-        args+=("--space=${INPUT_SPACE}")
+        optionalArgs+=("--space=${INPUT_SPACE}")
     fi
 
     if isSet "${INPUT_OVERWRITE_MODE}"; then
-        args+=("--overwrite-mode=${INPUT_OVERWRITE_MODE}")
+        optionalArgs+=("--overwrite-mode=${INPUT_OVERWRITE_MODE}")
     fi
 
     if isFlagSet "${INPUT_USE_DELTA_COMPRESSION}"; then
-        args+=("--use-delta-compression")
+        optionalArgs+=("--use-delta-compression")
     fi
 
     if isFlagSet "${INPUT_DEBUG}"; then
-        args+=("--debug")
+        optionalArgs+=("--debug")
     fi
 
     if isFlagSet "${INPUT_IGNORE_SSL_ERRORS}"; then
-        args+=("--ignoreSslErrors")
+        optionalArgs+=("--ignoreSslErrors")
     fi
 
     if isSet "${INPUT_TIMEOUT}"; then
-        args+=("--timeout=${INPUT_TIMEOUT}")
+        optionalArgs+=("--timeout=${INPUT_TIMEOUT}")
     fi
 
     if isSet "${INPUT_LOG_LEVEL}"; then
-        args+=("--logLevel=${INPUT_LOG_LEVEL}")
+        optionalArgs+=("--logLevel=${INPUT_LOG_LEVEL}")
     fi
 
-    echo "executing octo ${args[@]}"
-    octo push "${args[@]}"
+    echo "executing octo ${args[@]} ${optionalArgs[@]}"
+    octo push "${args[@]}" "${optionalArgs[@]}"
 }
 
-function isSet() {
+isSet() {
     [ ! -z "${1}" ]
 }
 
-function isFlagSet() {
+isFlagSet() {
     [ ! -z "${1}" ] && [ "${1}" == "true" ]
 }
 
-main
+run
