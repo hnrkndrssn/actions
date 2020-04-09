@@ -38,7 +38,7 @@ function main() {
     fi
 
     echo "executing octo ${args[@]}"
-    octo "${args[@]}"
+    octo push "${args[@]}"
 }
 
 function isSet() {
