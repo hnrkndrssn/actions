@@ -20,11 +20,11 @@ run() {
     fi
 
     if isSet "${INPUT_OUT_FOLDER}"; then
-        optionalArgs+=("--outFolder='${INPUT_OUT_FOLDER}'")
+        optionalArgs+=("--outFolder=${INPUT_OUT_FOLDER}")
     fi
 
     if isSet "${INPUT_BASE_PATH}"; then
-        optionalArgs+=("--basePath='${INPUT_BASE_PATH}'")
+        optionalArgs+=("--basePath=${INPUT_BASE_PATH}")
     fi
 
     if isSet "${INPUT_LOG_LEVEL}"; then
@@ -36,24 +36,24 @@ run() {
         IFS=', ' read -ra AUTHORS <<< "${INPUT_AUTHOR}"
         for author in "${AUTHORS[@]}"
         do
-            optionalArgs+=("--author='${author}'")
+            optionalArgs+=("--author=${author}")
         done
     fi
 
     if isSet "${INPUT_TITLE}"; then
-        optionalArgs+=("--title='${INPUT_TITLE}'")
+        optionalArgs+=("--title=${INPUT_TITLE}")
     fi
 
     if isSet "${INPUT_DESCRIPTION}"; then
-        optionalArgs+=("--description='${INPUT_DESCRIPTION}'")
+        optionalArgs+=("--description=${INPUT_DESCRIPTION}")
     fi
 
     if isSet "${INPUT_RELEASE_NOTES}"; then
-        optionalArgs+=("--releaseNotes='${INPUT_RELEASE_NOTES}'")
+        optionalArgs+=("--releaseNotes=${INPUT_RELEASE_NOTES}")
     fi
 
     if isSet "${INPUT_RELEASE_NOTES_FILE}"; then
-        optionalArgs+=("--releaseNotesFile='${INPUT_RELEASE_NOTES_FILE}")
+        optionalArgs+=("--releaseNotesFile=${INPUT_RELEASE_NOTES_FILE}")
     fi
 
     if isSet "${INPUT_COMPRESSION_LEVEL}"; then
