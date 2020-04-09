@@ -4,7 +4,7 @@ author: 'Octopus Deploy'
 
 inputs:
   package:
-    description: 'Package file to push.'
+    description: 'Package file to push. Specify multiple packages by separating with a `,`.'
     required: true
   overwrite_mode:
     description: 'If the package already exists in the repository, the default behavior is to reject the new package being pushed. Valid options are `FailIfExists`, `OverwriteExisting` or `IgnoreIfExists`. Default: `FailIfExists`.'
