@@ -5,7 +5,7 @@ This GitHub Action (using the `octopusdeploy/octo` docker container) pushes a pa
 ## Inputs
 
 ### Package pushing options
-- `package`: Package file to push.
+- `package`: Package file to push. Specify multiple packages by separating with a `,`.
 - `overwrite_mode`: If the package already exists in the repository, the default behavior is to reject the new package being pushed. Valid options are `FailIfExists`, `OverwriteExisting` or `IgnoreIfExists`. Default: `FailIfExists`.
 - `use_delta_compression`: Allows disabling of delta compression when uploading packages to the Octopus Server. Default: `true`.
 

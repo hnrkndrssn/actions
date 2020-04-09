@@ -14,7 +14,7 @@ This GitHub Action (using the `octopusdeploy/octo` docker container) creates a p
 - `verbose`: Verbose output. Default: `false`
 
 ### NuGet package options
-- `author`: Add an author to the package metadata. Default: current user.
+- `author`: Add an author to the package metadata. Add multiple authors by separating them with a `,`. Default: current user.
 - `title`: The title of the package.
 - `description`: A description of the package. Default: `A deployment package created from files on disk.`
 - `release_notes`: Release notes for this version of the package.
@@ -25,7 +25,7 @@ This GitHub Action (using the `octopusdeploy/octo` docker container) creates a p
 
 ### Advanced options
 
-- `include`: Add a file pattern to include, relative to the base path e.g. `/bin/*.dll` - if none are specified. Default: `**`
+- `include`: Add a file pattern to include, relative to the base path e.g. `/bin/*.dll`. Specify multiple file patterns by separating them with a `,`. Default: `**`
 - `overwrite`: Allow an existing package file of the same ID/version to be overwritten. Default: `false`
 
 ## Example workflow - package application with all defaults
