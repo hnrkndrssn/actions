@@ -10,6 +10,12 @@ on:
       - master
     paths-ignore:
       - '**.md'
+env:
+  ARTIFACT_PATH: 'path/to/artifact'
+  OCTOPUS_SPACE_NAME: 'GitHub Actions Test'
+  OCTOPUS_PROJECT_NAME: 'TestProject'
+  OCTOPUS_PACKAGE_NAME: 'Test'
+  OCTOPUS_PACKAGE_VERSION: '1.0.0'
 
 jobs:
   run-tests:
@@ -23,24 +29,34 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: mkdir -p path/to/artifact
+      - run: mkdir -p ${{ env.ARTIFACT_PATH }}
       
-      - run: echo hello > path/to/artifact/hello_world.txt
+      - run: echo hello > ${{ env.ARTIFACT_PATH }}/hello_world.txt
       
       - name: Run pack action
         uses: ./pack
         with:
-          package_id: 'Test'
-          version: '1.0.0'
+          package_id: ${{ env.OCTOPUS_PACKAGE_NAME }}
+          version: ${{ env.OCTOPUS_PACKAGE_VERSION }}
           format: 'Zip'
-          base_path: 'path/to/artifact'
+          base_path: ${{ env.ARTIFACT_PATH }}
           verbose: true
           overwrite: true
       
       - name: Push package to Octopus
         uses: ./push
         with:
-          package: 'Test.1.0.0.zip'
+          package: '${{ env.OCTOPUS_PACKAGE_NAME }}.${{ env.OCTOPUS_PACKAGE_VERSION }}.zip'
+          space: ${{ env.OCTOPUS_SPACE_NAME }}
           overwrite_mode: 'OverwriteExisting'
+          octopus_server: ${{ secrets.OCTOPUS_URL }}
+          octopus_api_key: ${{ secrets.OCTOPUS_API_KEY }}
+      
+      - name: Create release for '${{ env.OCTOPUS_PROJECT_NAME }}'
+        uses: ./create-release
+        with:
+          project: ${{ env.OCTOPUS_PROJECT_NAME }}
+          packageVersion: ${{ OCTOPUS_PACKAGE_VERSION }}
+          space: ${{ env.OCTOPUS_SPACE_NAME }}
           octopus_server: ${{ secrets.OCTOPUS_URL }}
           octopus_api_key: ${{ secrets.OCTOPUS_API_KEY }}
