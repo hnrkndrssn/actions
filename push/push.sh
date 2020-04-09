@@ -7,7 +7,6 @@ run() {
     echo ""
 
     args=()
-    args+=("push")
     OIFS=$IFS
     IFS=', ' read -ra PACKAGES <<< "${INPUT_PACKAGE}"
     for package in "${PACKAGES[@]}"
