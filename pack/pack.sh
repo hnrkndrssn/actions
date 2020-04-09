@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-. utils.sh
-
 cmd=$(basename "$0" .sh)
 
 run() {
