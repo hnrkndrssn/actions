@@ -1,40 +1,44 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 function main() {
     echo ""
 
-    set "--package=${INPUT_PACKAGE}" "--server=${INPUT_OCTOPUS_SERVER}" "--apikey=${INPUT_OCTOPUS_API_KEY}"
+    args=()
+    args+=("--package=${INPUT_PACKAGE}")
+    args+=("--server=${INPUT_OCTOPUS_SERVER}")
+    args+=("--apikey=${INPUT_OCTOPUS_API_KEY}")
 
     if isSet "${INPUT_SPACE}"; then
-        set -- "$@" "--space=${INPUT_SPACE}"
+        args+=("--space=${INPUT_SPACE}")
     fi
 
     if isSet "${INPUT_OVERWRITE_MODE}"; then
-        set -- "$@" "--overwrite-mode=${INPUT_OVERWRITE_MODE}"
+        args+=("--overwrite-mode=${INPUT_OVERWRITE_MODE}")
     fi
 
     if isFlagSet "${INPUT_USE_DELTA_COMPRESSION}"; then
-        set -- "$@" "--use-delta-compression"
+        args+=("--use-delta-compression")
     fi
 
     if isFlagSet "${INPUT_DEBUG}"; then
-        set -- "$@" "--debug"
+        args+=("--debug")
     fi
 
     if isFlagSet "${INPUT_IGNORE_SSL_ERRORS}"; then
-        set -- "$@" "--ignoreSslErrors"
+        args+=("--ignoreSslErrors")
     fi
 
     if isSet "${INPUT_TIMEOUT}"; then
-        set -- "$@" "--timeout=${INPUT_TIMEOUT}"
+        args+=("--timeout=${INPUT_TIMEOUT}")
     fi
 
     if isSet "${INPUT_LOG_LEVEL}"; then
-        set -- "$@" "--logLevel=${INPUT_LOG_LEVEL}"
+        args+=("--logLevel=${INPUT_LOG_LEVEL}")
     fi
 
-    octo "$@"
+    echo "octo ${args[@]}"
+    #octo "${args[@]}"
 }
 
 function isSet() {
