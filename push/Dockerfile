@@ -16,15 +16,15 @@ RUN mkdir /octo \
 
 RUN export OCTO_TOOLS_VERSION=$(wget -qO- https://g.octopushq.com/latesttools | egrep -m 1 '"latest"' | awk -F '"' '{ print $4 }') \
     && echo "Downloading octopuscli $OCTO_TOOLS_VERSION" \
-    && wget -c https://download.octopusdeploy.com/octopus-tools/$OCTO_TOOLS_VERSION/OctopusTools.$OCTO_TOOLS_VERSION.linux-x64.tar.gz \
-    && tar -zxvf OctopusTools.$OCTO_TOOLS_VERSION.linux-x64.tar.gz -C /octo \
-	&& rm OctopusTools.$OCTO_TOOLS_VERSION.linux-x64.tar.gz
+    && wget -c https://download.octopusdeploy.com/octopus-tools/$OCTO_TOOLS_VERSION/OctopusTools.$OCTO_TOOLS_VERSION.portable.tar.gz \
+    && tar -zxvf OctopusTools.$OCTO_TOOLS_VERSION.portable.tar.gz -C /octo \
+	&& rm OctopusTools.$OCTO_TOOLS_VERSION.portable.tar.gz
 
 LABEL maintainer="devops@octopus.com"
 LABEL octopus.push.action.version="1.0"
 LABEL octopus.tools.version=$OCTO_TOOLS_VERSION
 
-COPY entrypoint.sh /entrypoint.sh
+ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

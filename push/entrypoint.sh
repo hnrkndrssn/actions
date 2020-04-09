@@ -1,44 +1,42 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
-function main {
+function main() {
     echo ""
 
-    optionalArgs=()
-
     if isSet "${INPUTS_SPACE}"; then
-        optionalArgs+=("--space=${INPUTS_SPACE}")
+        optionalArgs[0]="--space=${INPUTS_SPACE}"
     fi
 
     if isSet "${INPUTS_OVERWRITE_MODE}"; then
-        optionalArgs+=("--overwrite-mode=${INPUTS_OVERWRITE_MODE}")
+        optionalArgs[1]="--overwrite-mode=${INPUTS_OVERWRITE_MODE}"
     fi
 
     if isFlagSet "${INPUTS_USE_DELTA_COMPRESSION}"; then
-        optionalArgs+=("--use-delta-compression")
+        optionalArgs[2]="--use-delta-compression"
     fi
 
     if isFlagSet "${INPUTS_DEBUG}"; then
-        optionalArgs+=("--debug")
+        optionalArgs[3]="--debug"
     fi
 
     if isFlagSet "${INPUTS_IGNORE_SSL_ERRORS}"; then
-        optionalArgs+=("--ignoreSslErrors");
+        optionalArgs[4]="--ignoreSslErrors"
     fi
 
     if isSet "${INPUTS_TIMEOUT}"; then
-        optionalArgs+=("--timeout=${INPUTS_TIMEOUT}")
+        optionalArgs[5]="--timeout=${INPUTS_TIMEOUT}"
     fi
 
     if isSet "${INPUTS_LOG_LEVEL}"; then
-        optionalArgs+=("--logLevel=${INPUTS_LOG_LEVEL}")
+        optionalArgs[6]="--logLevel=${INPUTS_LOG_LEVEL}"
     fi
 
     octo --package=${INPUTS_PACKAGE} \
          --server=${INPUTS_OCTOPUS_SERVER} \
          --server=${INPUTS_OCTOPUS_SERVER} \
          --apiKey=${INPUTS_OCTOPUS_API_KEY} \
-         ${optionalArgs[@]}
+         "${optionalArgs[@]}"
 }
 
 function isSet() {
