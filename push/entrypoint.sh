@@ -37,8 +37,8 @@ function main() {
         args+=("--logLevel=${INPUT_LOG_LEVEL}")
     fi
 
-    echo "octo ${args[@]}"
-    #octo "${args[@]}"
+    echo "executing octo ${args[@]}"
+    octo "${args[@]}"
 }
 
 function isSet() {
