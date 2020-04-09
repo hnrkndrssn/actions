@@ -38,4 +38,6 @@ jobs:
         uses: hnrkndrssn/actions/push@master
         with:
           package: 'path/to/package.version.nupkg'
+          octopus_server: ${{ secrets.OCTOPUS_URL }}
+          octopus_api_key: ${{ secrets.OCTOPUS_API_KEY }}
 ```
