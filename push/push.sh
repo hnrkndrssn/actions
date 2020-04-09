@@ -1,11 +1,19 @@
 #!/bin/bash
 set -e
 
+cmd=$(basename "$0" .sh)
+
 run() {
     echo ""
 
     args=()
-    args+=("--package=${INPUT_PACKAGE}")
+    args+=("push")
+    OIFS=$IFS
+    IFS=', ' read -ra PACKAGES <<< "${INPUT_PACKAGE}"
+    for package in "${PACKAGES[@]}"
+    do
+        args+=("--package=${package}")
+    done
     args+=("--server=${INPUT_OCTOPUS_SERVER}")
     args+=("--apikey=${INPUT_OCTOPUS_API_KEY}")
 
@@ -38,8 +46,8 @@ run() {
         optionalArgs+=("--logLevel=${INPUT_LOG_LEVEL}")
     fi
 
-    echo "executing octo ${args[@]} ${optionalArgs[@]}"
-    octo push "${args[@]}" "${optionalArgs[@]}"
+    echo "executing octo $cmd ${args[@]} ${optionalArgs[@]}"
+    octo $cmd "${args[@]}" "${optionalArgs[@]}"
 }
 
 isSet() {
