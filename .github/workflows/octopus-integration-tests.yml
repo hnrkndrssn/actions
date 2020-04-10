@@ -1,15 +1,20 @@
-name: Integration tests
+name: Octopus Integration tests
 on:
   pull_request:
     branches:
-      - master
+      - master    
+    paths:
+      - 'octopus/*'
     paths-ignore:
       - '**.md'
   push:
     branches:
       - master
+    paths:
+      - 'octopus/*'
     paths-ignore:
       - '**.md'
+
 env:
   ARTIFACT_PATH: 'path/to/artifact'
   OCTOPUS_SPACE_NAME: 'GitHub Actions Test'
@@ -34,7 +39,7 @@ jobs:
       - run: echo hello > ${{ env.ARTIFACT_PATH }}/hello_world.txt
       
       - name: Run pack action
-        uses: ./pack
+        uses: ./octopus/pack
         with:
           package_id: ${{ env.OCTOPUS_PACKAGE_NAME }}
           version: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}'
@@ -44,7 +49,7 @@ jobs:
           overwrite: true
       
       - name: Push package to Octopus
-        uses: ./push
+        uses: ./octopus/push
         with:
           package: '${{ env.OCTOPUS_PACKAGE_NAME }}.${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}.zip'
           space: ${{ env.OCTOPUS_SPACE_NAME }}
@@ -53,7 +58,7 @@ jobs:
           octopus_api_key: ${{ secrets.OCTOPUS_API_KEY }}
       
       - name: Create release for '${{ env.OCTOPUS_PROJECT_NAME }}'
-        uses: ./create-release
+        uses: ./octopus/create-release
         with:
           project: ${{ env.OCTOPUS_PROJECT_NAME }}
           package_version: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}'
@@ -66,7 +71,7 @@ jobs:
           octopus_api_key: ${{ secrets.OCTOPUS_API_KEY }}
       
       - name: Deploy release latest release to 'Test'
-        uses: ./deploy-release
+        uses: ./octopus/deploy-release
         with:
           project: ${{ env.OCTOPUS_PROJECT_NAME }}
           release_number: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}'
