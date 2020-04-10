@@ -9,12 +9,13 @@ run() {
     args=()
     args+=("--project=${INPUT_PROJECT}")
     args+=("--releaseNumber=${INPUT_RELEASE_NUMBER}")
-    OIFS=${IFS}
-    IFS=', ' read -ar ENVIRONMENTS <<< "${INPUT_DEPLOY_TO}"
-    for environment in ${ENVIRONMENTS[@]}
+    OIFS=$IFS
+    IFS=', ' read -ra ENVIRONMENTS <<< "${INPUT_DEPLOY_TO}"
+    for environment in "${ENVIRONMENTS[@]}"
     do
         args+=("--deployTo=${environment}")
     done
+    IFS=$OIFS
     args+=("--server=${INPUT_OCTOPUS_SERVER}")
     args+=("--apikey=${INPUT_OCTOPUS_API_KEY}")
 

@@ -161,7 +161,7 @@ run() {
 
     if isSet "${INPUT_DEPLOY_TO}"; then
         OIFS=$IFS
-        IFS=', ' read -ar ENVIRONMENTS <<< "${INPUT_DEPLOY_TO}"
+        IFS=', ' read -ra ENVIRONMENTS <<< "${INPUT_DEPLOY_TO}"
         for environment in "${ENVIRONMENTS[@]}"
         do
             optionalArgs+=("--deployTo=${environment}")
