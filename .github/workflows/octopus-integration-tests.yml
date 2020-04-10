@@ -5,15 +5,13 @@ on:
       - master    
     paths:
       - 'octopus/*'
-    paths-ignore:
-      - '**.md'
+      - '!**.md'
   push:
     branches:
       - master
     paths:
       - 'octopus/*'
-    paths-ignore:
-      - '**.md'
+      - '!**.md'
 
 env:
   ARTIFACT_PATH: 'path/to/artifact'
