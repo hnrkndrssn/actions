@@ -5,12 +5,14 @@ on:
       - master    
     paths:
       - 'octopus/*'
+      - '**/octopus-integration-tests.yml'
       - '!**.md'
   push:
     branches:
       - master
     paths:
       - 'octopus/*'
+      - '**/octopus-integration-tests.yml'
       - '!**.md'
 
 env:
