@@ -1,0 +1,104 @@
+name: 'Deploy Release'
+description: 'Deploys a release.'
+author: 'Octopus Deploy'
+
+inputs:
+  project:
+    description: 'Name or ID of the project.'
+    required: true
+  release_number:
+    description: 'Version number of the release to deploy. Or specify `latest` for the latest release.'
+    required: true
+  deploy_to:
+    description: 'A comma-separated list of environment names or IDs of the environments to automatically deploy to, e.g., ''Production'' or ''Environments-1'',''Environments-2''.'
+    required: true
+  channel:
+    description: 'Name or ID of the channel to use for the new release. Omit this argument to automatically select the best channel.'
+    required: false
+  show_progress:
+    description: 'Show progress of the deployment'
+    required: false
+  force_package_download:
+    description: 'Whether to force downloading of already installed packages. Default: `false`.'
+    required: false
+  wait_for_deployment:
+    description: 'Whether to wait synchronously for deployment to finish.'
+    required: false
+  deployment_timeout:
+    description: 'Specifies maximum time (timespan format) that the console session will wait for the deployment to finish. Default `00:10:00`. This will not stop the deployment. Requires `wait_for_deployment` parameter set.'
+    required: false
+  cancel_on_timeout:
+    description: 'Whether to cancel the deployment if the deployment timeout is reached. Default: `false`.'
+    required: false
+  check_sleep_cycle:
+    description: 'Specifies how much time (timespan format) should elapse between deployment status checks. Default: `00:00:10`'
+    required: false
+  use_guided_failure:
+    description: 'Whether to use guided failure mode. Valid options are `True` or `False`. Default: setting from environment in Octopus.'
+    required: false
+  specific_machines:
+    description: 'A comma-separated list of machine names to target in the deployed environment. If not specified all machines in the environment will be considered.'
+    required: false
+  exclude_machines:
+    description: 'A comma-separated list of machine names to exclude in the deployed environment. If not specified all machines in the environment will be considered.'
+    required: false
+  force:
+    description: 'If a project is configured to skip packages with already-installed versions, override this setting to force re-deployment. Default: `false`.'
+    required: false
+  skip_steps:
+    description: 'A comma-separated list of step names to skip.'
+    required: false
+  no_raw_log:
+    description: 'Don''t print the raw log of failed tasks'
+    required: false
+  raw_log_file:
+    description: 'Redirect the raw log of failed tasks to a file'
+    required: false
+  prompted_variables:
+    description: 'A comma-separated list of values for any prompted variables in the format `Label:Value`. For JSON values, embedded quotation marks should be escaped with a backslash.'
+    required: false
+  update_variables:
+    description: 'Overwrite the variable snapshot for the release by re-importing the variables from the project'
+    required: false
+  deploy_at:
+    description: 'Time at which deployment should start (scheduled deployment), specified as any valid DateTimeOffset format, and assuming the time zone is the current local time zone.'
+    required: false
+  no_deploy_after:
+    description: 'Time at which scheduled deployment should expire, specified as any valid DateTimeOffset format, and assuming the time zone is the current local time zone.'
+    required: false
+  tenants:
+    description: 'A comma-separated list of tenants to create a deployment for or use `*` wildcard to deploy to all tenants who are ready for this release (according to lifecycle).'
+    required: false
+  tenant_tags:
+    description: 'A comma-separated list of tenant tags for tenants to create a deployment for.'
+    required: false
+
+  octopus_server:
+    description: 'The base URL for your Octopus Server, e.g., ''https://octopus.example.com/''.'
+    required: true
+  octopus_api_key:
+    description: 'Your API key. Get this from the user profile page.'
+    required: true
+  debug:
+    description: 'Enable debug logging'
+    required: false
+  ignore_ssl_errors:
+    description: 'Set this flag if your Octopus Server uses HTTPS but the certificate is not trusted on this machine. Any certificate errors will be ignored. WARNING: this option may create a security vulnerability.'
+    required: false
+  timeout:
+    description: 'Timeout in seconds for network operations. Default is `600`'
+    required: false
+  space:
+    description: 'The name or ID of a space within which this command will be executed. The default space will be used if it is omitted.'
+    required: false
+  log_level:
+    description: 'The log level. Valid options are `verbose`, `debug`, `information`, `warning`, `error` and `fatal`. Default: `debug`'
+    required: false
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+branding:
+  icon: 'package'
+  color: 'gray-dark'
