@@ -160,7 +160,12 @@ run() {
     fi
 
     if isSet "${INPUT_DEPLOY_TO}"; then
-        optionalArgs+=("${INPUT_DEPLOY_TO}")
+        OIFS=$IFS
+        IFS=', ' read -ar ENVIRONMENTS <<< "${INPUT_DEPLOY_TO}"
+        for environment in "${ENVIRONMENTS[@]}"
+        do
+            optionalArgs+=("--deployTo=${environment}")
+        done
     fi
 
     if isFlagSet "${INPUT_DEBUG}"; then
