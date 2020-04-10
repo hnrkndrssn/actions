@@ -38,7 +38,7 @@ jobs:
       
       - run: echo hello > ${{ env.ARTIFACT_PATH }}/hello_world.txt
       
-      - name: Run pack action
+      - name: Package application
         uses: ./octopus/pack
         with:
           package_id: ${{ env.OCTOPUS_PACKAGE_NAME }}
@@ -57,7 +57,7 @@ jobs:
           octopus_server: ${{ secrets.OCTOPUS_URL }}
           octopus_api_key: ${{ secrets.OCTOPUS_API_KEY }}
       
-      - name: Create release for '${{ env.OCTOPUS_PROJECT_NAME }}'
+      - name: Create release and deploy to 'Dev' environment
         uses: ./octopus/create-release
         with:
           project: ${{ env.OCTOPUS_PROJECT_NAME }}
@@ -70,7 +70,7 @@ jobs:
           octopus_server: ${{ secrets.OCTOPUS_URL }}
           octopus_api_key: ${{ secrets.OCTOPUS_API_KEY }}
       
-      - name: Deploy release latest release to 'Test'
+      - name: Deploy release to 'Test' environment
         uses: ./octopus/deploy-release
         with:
           project: ${{ env.OCTOPUS_PROJECT_NAME }}
