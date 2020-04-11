@@ -8,7 +8,7 @@ run() {
 
     args=()
     if isGlob "${INPUT_PACKAGE}"; then
-        for package in "${INPUT_PACKAGE}"
+        for package in ${INPUT_PACKAGE}
         do
             args+=("--package=${package}")
         done
