@@ -61,7 +61,7 @@ jobs:
       - name: Push package to Octopus
         uses: ./octopus/push
         with:
-          package: './*.zip'
+          package: '"./*.zip"'
           space: ${{ env.OCTOPUS_SPACE_NAME }}
           overwrite_mode: 'OverwriteExisting'
           octopus_server: ${{ secrets.OCTOPUS_URL }}
