@@ -38,11 +38,21 @@ jobs:
       
       - run: echo hello > ${{ env.ARTIFACT_PATH }}/hello_world.txt
       
-      - name: Package application
+      - name: Package application \#1
         uses: ./octopus/pack
         with:
           package_id: ${{ env.OCTOPUS_PACKAGE_NAME }}
-          version: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}'
+          version: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}.1'
+          format: 'Zip'
+          base_path: ${{ env.ARTIFACT_PATH }}
+          verbose: true
+          overwrite: true
+
+      - name: Package application \#2
+        uses: ./octopus/pack
+        with:
+          package_id: ${{ env.OCTOPUS_PACKAGE_NAME }}
+          version: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}.2'
           format: 'Zip'
           base_path: ${{ env.ARTIFACT_PATH }}
           verbose: true
@@ -51,7 +61,7 @@ jobs:
       - name: Push package to Octopus
         uses: ./octopus/push
         with:
-          package: '${{ env.OCTOPUS_PACKAGE_NAME }}.${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}.zip'
+          package: './*.zip'
           space: ${{ env.OCTOPUS_SPACE_NAME }}
           overwrite_mode: 'OverwriteExisting'
           octopus_server: ${{ secrets.OCTOPUS_URL }}
