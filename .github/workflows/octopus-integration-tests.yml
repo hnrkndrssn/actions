@@ -71,8 +71,8 @@ jobs:
         uses: ./octopus/create-release
         with:
           project: ${{ env.OCTOPUS_PROJECT_NAME }}
-          package_version: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}'
-          version: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}'
+          package_version: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}.1'
+          version: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}.1'
           deployment_progress: true
           wait_for_deployment: true
           deploy_to: 'Dev'
@@ -84,7 +84,7 @@ jobs:
         uses: ./octopus/deploy-release
         with:
           project: ${{ env.OCTOPUS_PROJECT_NAME }}
-          release_number: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}'
+          release_number: '${{ env.OCTOPUS_PACKAGE_VERSION }}+${{ github.sha }}.${{ matrix.os }}.1'
           deploy_to: 'Test'
           progress: true
           wait_for_deployment: true
