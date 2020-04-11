@@ -7,12 +7,19 @@ run() {
     echo ""
 
     args=()
-    OIFS=$IFS
-    IFS=', ' read -ra PACKAGES <<< "${INPUT_PACKAGE}"
-    for package in "${PACKAGES[@]}"
-    do
-        args+=("--package=${package}")
-    done
+    if isGlob "${INPUT_PACKAGE}"; then
+        for package in "${INPUT_PACKAGE}"
+        do
+            args+=("--package=${package}")
+        done
+    else
+        OIFS=$IFS
+        IFS=', ' read -ra PACKAGES <<< "${INPUT_PACKAGE}"
+        for package in "${PACKAGES[@]}"
+        do
+            args+=("--package=${package}")
+        done
+    fi
     args+=("--server=${INPUT_OCTOPUS_SERVER}")
     args+=("--apikey=${INPUT_OCTOPUS_API_KEY}")
 
@@ -57,4 +64,7 @@ isFlagSet() {
     [ ! -z "${1}" ] && [ "${1}" == "true" ]
 }
 
+isGlob() {
+    [[ "${1}" =~ \*  ]]
+}
 run
