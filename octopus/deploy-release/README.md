@@ -1,4 +1,4 @@
-# Octopus CLI Create Release action
+# Octopus CLI Deploy Release action
 
 This GitHub Action (using the `octopusdeploy/octo` docker container) allows you to deploy a release to one or more environments.
 
@@ -50,12 +50,12 @@ on:
 
 jobs:
 
-  create-release:
+  deploy-release:
     runs-on: [ubuntu-latest]
 
     steps:
       - name: 'Deploy release'
-        uses: hnrkndrssn/actions/octopus/create-release@master
+        uses: hnrkndrssn/actions/octopus/deploy-release@master
         with:
           project: 'MyProject'
           release_number: '1.0.0'
