@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: 'Package application'
-        uses: hnrkndrssn/actions/pack@master
+        uses: hnrkndrssn/actions/octopus/pack@master
         with:
           package_id: 'MyCompany.MyApp'
 ```

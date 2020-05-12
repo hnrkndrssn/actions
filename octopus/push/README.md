@@ -18,7 +18,7 @@ This GitHub Action (using the `octopusdeploy/octo` docker container) pushes a pa
 - `space`: The name or ID of a space within which this command will be executed. The default space will be used if it is omitted.
 - `log_level`: The log level. Valid options are `verbose`, `debug`, `information`, `warning`, `error` and `fatal`. Default: `debug`
 
-## Example workflow - package application with all defaults
+## Example workflow - push a package to Octopus
 
 On every `push` to a tag, [pushing a package](https://octopus.com/docs/packaging-applications/package-repositories/built-in-repository#pushing-packages-to-the-built-in-repository)
 
@@ -35,7 +35,7 @@ jobs:
 
     steps:
       - name: 'Push package to Octopus'
-        uses: hnrkndrssn/actions/push@master
+        uses: hnrkndrssn/actions/octopus/push@master
         with:
           package: 'path/to/package.version.nupkg'
           octopus_server: ${{ secrets.OCTOPUS_URL }}

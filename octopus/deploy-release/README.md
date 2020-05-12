@@ -1,4 +1,4 @@
-# Octopus CLI Create Release action
+# Octopus CLI Deploy Release action
 
 This GitHub Action (using the `octopusdeploy/octo` docker container) allows you to deploy a release to one or more environments.
 
@@ -38,7 +38,7 @@ This GitHub Action (using the `octopusdeploy/octo` docker container) allows you 
 - `space`: The name or ID of a space within which this command will be executed. The default space will be used if it is omitted.
 - `log_level`: The log level. Valid options are `verbose`, `debug`, `information`, `warning`, `error` and `fatal`. Default: `debug`
 
-## Example workflow - package application with all defaults
+## Example workflow - deploy a release in Octopus
 
 On every `push` to a tag, [deploy a release](https://octopus.com/docs/octopus-rest-api/octopus-cli/deploy-release#Deployingreleases-Basicexamples)
 
@@ -50,12 +50,12 @@ on:
 
 jobs:
 
-  create-release:
+  deploy-release:
     runs-on: [ubuntu-latest]
 
     steps:
       - name: 'Deploy release'
-        uses: hnrkndrssn/actions/create-release@master
+        uses: hnrkndrssn/actions/octopus/deploy-release@master
         with:
           project: 'MyProject'
           release_number: '1.0.0'
